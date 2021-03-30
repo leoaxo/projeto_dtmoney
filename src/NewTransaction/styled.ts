@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import {darken} from 'polished';
+import {darken, transparentize} from 'polished';
+import { isPropertySignature } from 'typescript';
 export const Container = styled.form`
 
 h2{
@@ -48,15 +49,30 @@ export const TransactionTypeContaine = styled.div `
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
-    
-    button{
+`;
+interface Radioboxprops  {
+    isActive: Boolean;
+    activeColor: 'green'| 'red';
+
+
+};
+const colors = {
+    green: '#33CC95',
+    red: '#E52640'
+};
+export const Radiobox = styled.button<Radioboxprops>`
+
         height: 4rem;
-        border: 1px solid #d7d7d7;
+        border: 2px solid #d7d7d7;
         border-radius: 0.25rem;
         
         transition:  0.5s;
-        background: transparent;
+        background: ${(props)=> props.isActive  
+        ? transparentize(0.8, colors[props.activeColor])
+        :'transparent'
+        };
         &:hover{
+            
             border-color: ${darken(0.2, '#D7D7D7')};
         }
 
@@ -64,9 +80,9 @@ export const TransactionTypeContaine = styled.div `
         align-items: center;
         justify-content: center;
         img{
-            weidth: 20px;
+            width: 20px;
             height: 20px;
-        }
+        }   
 
         span{
             display: inline-block;
@@ -74,5 +90,6 @@ export const TransactionTypeContaine = styled.div `
             font-size: 1rem;
             color: var(--text-title);
         }
-    }
+    
+
 `
